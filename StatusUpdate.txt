@@ -1,0 +1,8 @@
+//hardest part was setting the board based on the guess
+//kept on messing up string vs char
+//set code based on randomized numbers; still need to make it so that there are no repeats 
+//keeping of each method; getting it straight for which method does what and rearranging it in tester class
+//keeping track of even vs odd arrays; keeping track of which array does what
+//coded user guess, print board method, and set code method
+//user guess was the most challenging
+//array vs array list; comparing ints vs strings
