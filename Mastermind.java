@@ -124,9 +124,9 @@ public class Mastermind {
 	//board index counter; even numbers for guess arrays
 	private int gs = 0; 
 	//boolean to know if you won 
-	boolean win; 
+	//boolean win; 
 	
-	public void guessAndCheck() {
+	public void guessAndCheck() { //check is not working
 		
 		//string for user guess
 		String uGuess; 
@@ -150,23 +150,44 @@ public class Mastermind {
 		//checking
 		int c = 0; //for else if 
 		
+		//boolean to make sure there are no replacements when checking the setting key 
+		boolean o = true; //true = occupied 
+		
 		//circulate through all four
 		for (int i = 0; i < 4; i++) {
 			//if matches color and location
 			if (uGuess.substring(i, i+1).equals(code.get(i))) {
 				//b = black = right color right spot
-				int d = (int)(Math.random()*3 + 1); //replaces make not random 
-				board.get(b).set(d,"(B)"); 
-				win = true; 
+				while (o == true) {
+					int d = (int)(Math.random()*3 + 1);
+					String x = board.get(b).get(d); 
+					if (x.equals("( )") ) {
+						o = false; 
+						board.get(b).set(d,"(B)");  
+					}
+					else {
+						o = true; 
+					//	win = true; 
+					}
+				}
 			}
 			//only matches color
 			else if (code.contains(uGuess.substring(c, c + 1))) {
-				int d = (int)(Math.random()*3 + 1); 
-				board.get(b).set(d, "(W)"); 
-				win = false;
+				while (o == true) {
+					int d = (int)(Math.random()*3 + 1);
+					String x = board.get(b).get(d); 
+					if (x.equals("( )")) {
+						o = false; 
+						board.get(b).set(d,"(W)"); 
+						//win = false; 
+					}
+					else {
+						o = true; 
+					}
+				}
 			}
 		}
-
+		//System.out.print(win + "\n"); 
 	}
 }
 
