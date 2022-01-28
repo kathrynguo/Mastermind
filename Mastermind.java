@@ -11,18 +11,19 @@ public class Mastermind {
 	//setting code (4 digit array)
 		//psuedo guess with ints
 		private int[] intCode = new int[4];
+
 		//real guess with letters 
-		private String[] code = new String[4]; 
+		private ArrayList<String> code = new ArrayList<String>(); //had to change to arraylist for list.contains
 	
 	//building code; WITH REPEATS
 	public void setCode() {
-	
 		//random number to each index in code 
 		for (int x = 0; x < 4; x++) {
 			intCode[x] = (int)(Math.random()*7 + 1); 
 			//System.out.print(guess[x] + "");
 		}
 		//System.out.print("/n"); 
+		
 			
 		//setting letters in code based on numbers in intCode
 		//R = 1
@@ -35,33 +36,30 @@ public class Mastermind {
 		
 		for (int i = 0; i < 4; i++) {
 			if (intCode[i] == 1) {
-				code[i] = "R"; 
+				code.add("R"); 
 			}
 			else if (intCode[i] == 2) {
-				code[i] = "Y"; 
+				code.add("Y"); 
 			}
 			else if (intCode[i] == 3) {
-				code[i] = "G"; 
+				code.add("G"); 
 			}
 			else if (intCode[i] == 4) {
-				code[i] = "B"; 
+				code.add("B"); 
 			}
 			else if (intCode[i] == 5) {
-				code[i] = "P"; 
+				code.add("P"); 
 			}
 			else if (intCode[i] == 6) {
-				code[i] = "W"; 
+				code.add("W"); 
 			}
 			else if (intCode[i] == 7) {
-				code[i] = "O"; 
+				code.add("O"); 
 			}
 		}
 		 
 		//print code
-		for (int a = 0; a < 4; a++) {
-			System.out.print(code[a]); 
-		}
-		System.out.println("\n"); 
+		System.out.println(code); 
 		
 	}
 	
@@ -99,16 +97,16 @@ public class Mastermind {
 	//}
 	
 	}
-	
+	//last in tester class
 	public void printBoard() {
 		
 		//printing out guess board
 		for (int c = 0; c < 4; c ++){ 
 		System.out.print(board.get(a).get(c) + " ");
 		}
-		System.out.println("\n");  
+		System.out.println("\n"); 
+		//adds 2 after printing 
 		a = a + 2; 
-		
 		
 		//printing out check array
 		System.out.print(board.get(b).get(0) + " "); 
@@ -116,6 +114,7 @@ public class Mastermind {
 		System.out.println(""); 
 		System.out.print(board.get(b).get(2) + " "); 
 		System.out.print(board.get(b).get(3) + " "); 
+		//adds 2 after printing 
 		b = b + 2; 
 		
 		System.out.println("\n");
@@ -124,8 +123,10 @@ public class Mastermind {
 	
 	//board index counter; even numbers for guess arrays
 	private int gs = 0; 
-		
-	public void userGuess() {
+	//boolean to know if you won 
+	boolean win; 
+	
+	public void guessAndCheck() {
 		
 		//string for user guess
 		String uGuess; 
@@ -143,9 +144,29 @@ public class Mastermind {
 		//board counter goes up by 2
 		gs = gs + 2; 
 		
-		//space
+		//space; rest of the board is printed out in printBoard
 		System.out.print("\n"); 
+		
+		//checking
+		int c = 0; //for else if 
+		
+		//circulate through all four
+		for (int i = 0; i < 4; i++) {
+			//if matches color and location
+			if (uGuess.substring(i, i+1).equals(code.get(i))) {
+				//b = black = right color right spot
+				int d = (int)(Math.random()*3 + 1); //replaces make not random 
+				board.get(b).set(d,"(B)"); 
+				win = true; 
+			}
+			//only matches color
+			else if (code.contains(uGuess.substring(c, c + 1))) {
+				int d = (int)(Math.random()*3 + 1); 
+				board.get(b).set(d, "(W)"); 
+				win = false;
+			}
+		}
 
 	}
-	 
 }
+
