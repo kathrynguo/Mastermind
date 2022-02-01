@@ -97,6 +97,7 @@ public class Mastermind {
 	//}
 	
 	}
+	
 	//last in tester class
 	public void printBoard() {
 		
@@ -122,9 +123,10 @@ public class Mastermind {
 	}
 	
 	//board index counter; even numbers for guess arrays
-	private int gs = 0; 
-	//boolean to know if you won 
-	//boolean win; 
+	private int gs = 0; //for populating guess
+	private int ck = 1; //for populating check
+	//boolean to make sure there are no replacements when checking the setting key 
+	private boolean occ=true; //true = occupied 
 	
 	public void guessAndCheck() { //check is not working
 		
@@ -138,7 +140,7 @@ public class Mastermind {
 		
 		//populate board with guess
 		for (int x = 0; x < 4; x++) {
-			//array index gs, index x, set
+			//array index gs (even), index x, set
 			board.get(gs).set(x, "[" + uGuess.charAt(x) + "]"); 
 		}
 		//board counter goes up by 2
@@ -148,46 +150,75 @@ public class Mastermind {
 		System.out.print("\n"); 
 		
 		//checking
-		int c = 0; //for else if 
+		//int c = 0; //for else if 
 		
-		//boolean to make sure there are no replacements when checking the setting key 
-		boolean o = true; //true = occupied 
+		/*
+		//checking for repeat letters in code
+		int rep = 0;
+		int k = 0; 
+				//checking how many times it contains that letter
+				for (int h = 0; h < 4; h++) {
+					if (code.get(h).equals(uGuess.substring(k, k + 1))) {
+						rep = rep + 1;
+						k = k + 1;  
+					}
+				}
+			System.out.println(rep + " reps");
+			*/
 		
 		//circulate through all four
 		for (int i = 0; i < 4; i++) {
 			//if matches color and location
 			if (uGuess.substring(i, i+1).equals(code.get(i))) {
+				//System.out.println("RED pin");
 				//b = black = right color right spot
-				while (o == true) {
-					int d = (int)(Math.random()*3 + 1);
-					String x = board.get(b).get(d); 
-					if (x.equals("( )") ) {
-						o = false; 
-						board.get(b).set(d,"(B)");  
+				do {
+					int d = (int)(Math.random()*4);
+					
+					String x = board.get(ck).get(d); 
+					if (x.equals("( )") ) {  
+						board.get(ck).set(d,"(B)");  
+						//System.out.println("b pin set");
+						occ = false;
 					}
 					else {
-						o = true; 
+						occ = true; 
+						//System.out.println(d + "loop");
 					//	win = true; 
-					}
-				}
-			}
+					} 
+				} while(occ == true); //DOUBLE EQUAL SIGN 
+			}//close if 
 			//only matches color
-			else if (code.contains(uGuess.substring(c, c + 1))) {
-				while (o == true) {
-					int d = (int)(Math.random()*3 + 1);
-					String x = board.get(b).get(d); 
-					if (x.equals("( )")) {
-						o = false; 
-						board.get(b).set(d,"(W)"); 
-						//win = false; 
+			else if (code.contains(uGuess.substring(i, i + 1))){ //can lend itself to false doubles; must fix 
+				//System.out.println("WHITE PIN");
+				do {
+					int d = (int)(Math.random()*4);
+					String x = board.get(ck).get(d); 
+					if (x.equals("( )") ) {
+						board.get(ck).set(d,"(W)");  
+						//System.out.println("w pin set");
+						occ = false; 
+						
 					}
 					else {
-						o = true; 
+						occ = true; 
+						//System.out.println(d + "loop"); 
 					}
-				}
-			}
-		}
+				} while(occ == true); //DOUBLE EQUAL SIGN
+				//breaks out when the number of times you printed becomes euqal to the number of times the letter is in the code 
+				
+			}//close else if
+			} //close for loop 
+			
+			
+			//add 2 to check array index
+			ck = ck + 2;
+		} //close guessAndCheck method
 		//System.out.print(win + "\n"); 
 	}
-}
+
+//in setCode 
+//l1; l2; l3; l4; 
+//check that string does not contain l2, l3, l4 already within the substring you've already checked
+//for loop to find numbers of repeats of letters
 
