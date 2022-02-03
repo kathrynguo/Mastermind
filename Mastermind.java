@@ -15,7 +15,7 @@ public class Mastermind {
 		//real guess with letters 
 		private ArrayList<String> code = new ArrayList<String>(); //had to change to arraylist for list.contains
 	
-	//building code; WITH REPEATS
+	//building code; NO REPEATS REPEATS
 	public void setCode() {
 		//random number to each index in code 
 		
@@ -81,21 +81,20 @@ public class Mastermind {
 			
 	}
 	
+	//printing code ; prints at the end of the game 
 	public void printCode() {
 		System.out.print("CODE: "); 
 		System.out.print(code);
 	}
 	
 	
-	//build a row for each turn; currently empty 
-	//move print statements into a print method; print once populated 
-		
 		//board counter 
 		private int x = 0; 
 		//used in buildBoard and printBoard
 		private int a = 0; //for even number array guesses
 		private int b = 1; //for odd number array checks
 
+	
 	public void buildBoard() { //creates 1 set of guesses & checks; loop in driver class to do 1 at a time
 	
 	//for (int x = 0; x < 12; x++) {
@@ -157,8 +156,7 @@ public class Mastermind {
 	private boolean occ=true; //true = occupied 
 	public String uGuess; 
 	
-	public void guess() { //check is not working
-
+	public void guess() { //gets input from user and populates 1 guess row with it
 		//getting guess from user
 		Scanner s1 = new Scanner(System.in);
 		System.out.print("Guess: ");
@@ -180,8 +178,8 @@ public class Mastermind {
 		//System.out.println(ck); 
 	}
 	
-	
-	public boolean check(boolean win){
+	//checks guess against code, populates board with it, and also checks if the board is completely filled with black pins(meaning you win) 
+	public boolean check(boolean win){ 
 		
 		win = false; 
 		
