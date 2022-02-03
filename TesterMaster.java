@@ -1,4 +1,4 @@
-
+/* Driver class that include rules, how to play, iniitiaes methods, alternates between turns, and tells you if you won/lost and prints code*/
 public class TesterMaster {
 
 	public static void main (String args[] ) {
@@ -19,18 +19,20 @@ public class TesterMaster {
 	
 		System.out.println("BEGIN!\n"); 
 		
+		//new game
 		Mastermind m1 = new Mastermind(); 
 		m1.setCode(); 
 		
 		int turn = 1; //turns
 		boolean win = false; 
 		
+		//first turn not in the while loop because or else it doesn't work 
 		m1.buildBoard(); 
 		m1.guess();
 		m1.check(win);
-
 		m1.printBoard();  
-
+		
+		//alternating between turns 11 times
 		while (turn <= 12) {
 			m1.buildBoard(); 
 			m1.guess();
@@ -45,12 +47,11 @@ public class TesterMaster {
 		}
 		
 		if (turn == 13) {
-			
+			//means you used 12 turns
 			System.out.println("SORRY OUT OF TURNS"); 
 			m1.printCode(); 
 		}
 		else {
-			
 			System.out.println("YOU WIN!"); 
 			m1.printCode();
 		}
