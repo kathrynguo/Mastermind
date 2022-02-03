@@ -6,3 +6,40 @@
 //coded user guess, print board method, and set code method
 //user guess was the most challenging
 //array vs array list; comparing ints vs strings
+
+
+//UPDATE 2/3/22
+Challenges
+1. Repeats in code
+  Originally, would double count guesses because used contains method
+  Ex if the code was RGYB and I guessed GGGG would have 1 Black and 2 Whites
+  Then I changed it so that if there were more appearances of the letter in the guess than in the code, it wouldn't place the pin
+  Which worked 90% of the time
+  But then it would miss some letters
+  EX if the code was ROBO and I guessed OOOP; it would place 1 Black but no whites
+  Which is why doing the repeats was a problem 
+  Evenutally I just changed it to no repeats
+2. Do while loop 
+  Spent 30 minutes trying to figure out why my do while loop was inifinite
+  It's because I typed it wrong
+  do {
+  }while( a == true); is the correct syntax
+  I typed
+  do {
+  } while(a = true); 
+ 3. Making it stop when you guessed correctly but still had turns left
+  Had to change to a boolean method
+  Couldn't figure out why there were out of bounds errors until realized that typing m1.check() calls it every time
+  So doing
+  m1.check(win); 
+  if (m1.check(win) == true) {
+  else if (m1.check(win) == false) {
+  calls it three times
+  
+  So really you have to do
+  if (m1.check(win) == true) {
+  }
+  else {
+  }
+ 4. Adding print statement to trace helps you diagnose problems
+  
